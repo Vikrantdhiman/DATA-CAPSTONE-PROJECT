@@ -14,15 +14,7 @@
 # * twp: String variable, Township
 # * addr: String variable, Address
 # * e: String variable, Dummy variable (always 1)
-# 
-# Just go along with this notebook and try to complete the instructions or answer the questions in bold using your Python and Data Science skills!
-
-# ## Data and Setup
-
 # ____
-# ** Import numpy and pandas **
-
-# In[1]:
 
 
 import numpy as np
@@ -64,19 +56,10 @@ df.info()
 df.head(3)
 
 
-# ## Basic Questions
-
-# ** What are the top 5 zipcodes for 911 calls? **
-
 # In[6]:
 
 
 df['zip'].value_counts().head(5)
-
-
-# ** What are the top 5 townships (twp) for 911 calls? **
-
-# In[7]:
 
 
 df['twp'].value_counts().head(5)
@@ -90,11 +73,6 @@ df['twp'].value_counts().head(5)
 df['title'].nunique()
 
 
-# ## Creating new features
-
-# ** In the titles column there are "Reasons/Departments" specified before the title code. These are EMS, Fire, and Traffic. Use .apply() with a custom lambda expression to create a new column called "Reason" that contains this string value.** 
-# 
-# **For example, if the title column value is EMS: BACK PAINS/INJURY , the Reason column value would be EMS. **
 
 # In[9]:
 
@@ -103,7 +81,6 @@ df['title'].nunique()
 df['Reason'] = df['title'].apply(lambda title: title.split(':')[0])
 
 
-# ** What is the most common Reason for a 911 call based off of this new column? **
 
 # In[10]:
 
@@ -135,13 +112,7 @@ type(df['timeStamp'].iloc[0])
 
 df['timeStamp'] = pd.to_datetime(df['timeStamp'])
 
-
-# ** You can now grab specific attributes from a Datetime object by calling them. For example:**
-# 
-#     time = df['timeStamp'].iloc[0]
-#     time.hour
-# 
-# **You can use Jupyter's tab method to explore the various attributes you can call. Now that the timestamp column are actually DateTime objects, use .apply() to create 3 new columns called Hour, Month, and Day of Week. You will create these columns based off of the timeStamp column, reference the solutions if you get stuck on this step.**
+ called Hour, Month, and Day of Week. You will create these columns based off of the timeStamp column, reference the solutions if you get stuck on this step.**
 
 # In[14]:
 
@@ -188,20 +159,6 @@ sns.countplot(x='Month',data=df,hue='Reason',palette='viridis')
 # To relocate the legend
 plt.legend(bbox_to_anchor=(1.05, 1), loc=2, borderaxespad=0.)
 
-
-# ** Did you notice something strange about the Plot? **
-
-# In[19]:
-
-
-# It is missing some months! 9,10, and 11 are not there.
-
-
-# ** You should have noticed it was missing some Months, let's see if we can maybe fill in this information by plotting the information in another way, possibly a simple line plot that fills in the missing months, in order to do this, we'll need to do some work with pandas...**
-
-# ** Now create a gropuby object called byMonth, where you group the DataFrame by the month column and use the count() method for aggregation. Use the head() method on this returned DataFrame. **
-
-# In[20]:
 
 
 byMonth = df.groupby('Month').count()
@@ -317,5 +274,3 @@ sns.heatmap(dayMonth,cmap='viridis')
 sns.clustermap(dayMonth,cmap='viridis')
 
 
-# **Continue exploring the Data however you see fit!**
-# # Great Job!
